@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import telran.java52.book.dao.AuthorRepository;
 import telran.java52.book.dao.BookRepository;
 import telran.java52.book.dao.PublisherRepository;
+import telran.java52.book.dto.AuthorDto;
 import telran.java52.book.dto.BookDto;
 import telran.java52.book.dto.exception.EntityNotFoundException;
 import telran.java52.book.model.Author;
@@ -34,12 +35,13 @@ public class BookServiceImpl implements BookService {
 		// Publisher
 		Publisher publisher = publisherRepository.findById(bookDto.getPublisher())
 				.orElse(publisherRepository.save(new Publisher(bookDto.getPublisher())));
-		
+
 		// Authors
 		Set<Author> authors = bookDto.getAuthors().stream()
-				.map(a -> authorRepository.findById(a.getName()).orElse(authorRepository.save(new Author(a.getName(), a.getBirthDate()))))
+				.map(a -> authorRepository.findById(a.getName())
+						.orElse(authorRepository.save(new Author(a.getName(), a.getBirthDate()))))
 				.collect(Collectors.toSet());
-		
+
 		Book book = new Book(bookDto.getIsbn(), bookDto.getTitle(), authors, publisher);
 		bookRepository.save(book);
 		return true;
@@ -49,6 +51,48 @@ public class BookServiceImpl implements BookService {
 	public BookDto findBookByIsbn(String isbn) {
 		Book book = bookRepository.findById(isbn).orElseThrow(EntityNotFoundException::new);
 		return modelMapper.map(book, BookDto.class);
+	}
+
+	@Override
+	public BookDto remove(String isbn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BookDto updateBook(String isbn, String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<BookDto> findBooksByAuthor(String authorName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<BookDto> findBooksByPublisher(String publisherName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<AuthorDto> findBookAuthors(String isbn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<String> findPublishersByAuthor(String authorName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AuthorDto removeAuthor(String authorName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

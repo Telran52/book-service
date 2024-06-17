@@ -41,7 +41,7 @@ public class Book implements Serializable {
 	)
 	Set<Author> authors;
 	@ManyToOne
-	@JoinColumn(name = "PUBLISHER_PUBLISHER_NAME")
+//	@JoinColumn(name = "PUBLISHER_PUBLISHER_NAME")
 	Publisher publisher;
 
 }
